@@ -1,0 +1,64 @@
+body{
+	max-width: 960px;
+	padding: 0 5% 0 5%;
+}
+#main {
+	padding: 40px 5% 0 5%;
+}
+h2 {
+	padding-top: 10px;
+}
+
+.videos {
+	margin : 0;
+	border: none;
+	padding: 3px;
+}
+
+.links {
+	margin : 0;
+	border: none;
+	padding: 3px;
+}
+
+#history {
+
+}
+
+.second-slide {
+  margin: 0 auto;
+}
+
+.fifth-slide {
+  margin: 0 auto;
+}
+
+img {
+  margin: 0 auto;
+  max-width: 300px;
+  max-height: 300px;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+}
+
+footer {
+	padding-top: 20px
+}
+
+button {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
