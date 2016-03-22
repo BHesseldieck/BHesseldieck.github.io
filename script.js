@@ -38,7 +38,7 @@ window.setTimeout(function(){
 	var posterRotation = 0;
 	for(var i = 0; i <= 8; i++){
 		var posterURL = movies[i].Poster;
-		$('a-scene').append("<a-curvedimage src=" + posterURL + " radius='5' theta-length='40' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>");
+		$('a-scene').append("<a-curvedimage crossOrigin='Anonymous' src=" + posterURL + " radius='5' theta-length='40' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>");
 		posterRotation += 40;
 	}
 
