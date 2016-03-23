@@ -1,4 +1,4 @@
-var movieList = [	
+var movieList = [
 'The Big Short',
 'Bridge of Spies',
 'Brooklyn',
@@ -8,7 +8,6 @@ var movieList = [
 'Room',
 'Spotlight',
 'American Sniper',
-'Birdman',
 'Boyhood',
 'Grand Budapest Hotel',
 'The Imitation Game',
@@ -159,17 +158,6 @@ var movieList = [
 'Born on the Fourth of July',
 'Dead Poets Society',
 'Field of Dreams',
+'Star Wars',
 'My Left Foot'
 ]
-
-
-
-
-
-
-
-
-
-
-
-
