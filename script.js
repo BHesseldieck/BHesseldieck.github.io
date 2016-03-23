@@ -97,7 +97,49 @@ var placePosters = function(genre){
 					}
 				}
 			}
-
+		}
+		else if(genre == 'Action'){
+			//console.log('TEST IF 1');
+			//console.log(movies);
+			for(var j = 0; j < movies.length; j++){
+				var check = true;
+				//console.log('TEST FOR 1')
+				var posterURL = movies[j].Poster;
+				var splitGenre = movies[j].Genre.split(',');
+				for(var k=0; k < splitGenre.length; k++){;
+					console.log(splitGenre, ' TEST FOR 2');
+					console.log(movies[j].Title);
+					if(splitGenre[k] == 'Action'  && counter <= 17 && check){
+						check = false;
+						$("#posters").append("<a-curvedimage class='poster' src=" + posterURL + " radius='10' theta-length='20' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>")
+						console.log("Action appended");
+						posterRotation += 20;
+						counter++;
+					}
+				}
+			}
+		}
+		else if(genre == 'Comedy'){
+			//console.log('TEST IF 1');
+			//console.log(movies);
+			for(var j = 0; j < movies.length; j++){
+				var check = true;
+				//console.log('TEST FOR 1')
+				var posterURL = movies[j].Poster;
+				var splitGenre = movies[j].Genre.split(',');
+				for(var k=0; k < splitGenre.length; k++){;
+					console.log(splitGenre, ' TEST FOR 2');
+					console.log(movies[j].Title);
+					if(splitGenre[k] == 'Comedy'  && counter <= 17 && check){
+						check = false;
+						$("#posters").append("<a-curvedimage class='poster' src=" + posterURL + " radius='10' theta-length='20' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>")
+						console.log("Comedy appended");
+						posterRotation += 20;
+						counter++;
+					}
+				}
+			}
+		}
 			// for(var i = 0; i <= 17; i++){
 			// 	var posterURL = 'http://crossorigin.me/' + movies[i].Poster;
 			// 	//SELECT ONLY DRAMA FILMS
@@ -105,7 +147,6 @@ var placePosters = function(genre){
 			// 	$('#posters').append("<a-curvedimage src=" + posterURL + " radius='10' theta-length='20' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>");
 			// 	posterRotation += 20;
 			// }
-		}
 	}
 };
 //
