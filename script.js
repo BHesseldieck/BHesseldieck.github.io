@@ -106,7 +106,7 @@ var placePosters = function(genre){
 		var counter = 0;
 		$('#posters').append("<a-entity id='" + genre + "div'></a-entity>")
 		for(var j = 0; j < movies.length; j++){
-			var posterURL = movies[j].Poster;
+			var posterURL = 'http://crossorigin.me/' + movies[j].Poster;
 			var splitGenre = movies[j].Genre.split(',');
 			for(var k=0; k < splitGenre.length; k++){
 				if(splitGenre[k] == genre  && counter <= 17){
