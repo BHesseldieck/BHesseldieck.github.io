@@ -1,6 +1,11 @@
 // Final
 var movieTrailers =[];
 var movies = [];
+
+// $.getJSON('http://api.traileraddict.com/?film=curious-case-benjamin-button&count=3' + '&callback=?', function(data){
+// 	alert(data.contents);
+// });
+
 // $.ajax({
 // 	method: 'GET',
 // 	dataType: 'xml',
@@ -31,27 +36,13 @@ movieList.forEach(function(string){
 })
 
 window.setTimeout(function(){
-
-
-
-
 	var posterRotation = 0;
 	for(var i = 0; i <= 8; i++){
 		var posterURL = movies[i].Poster;
 		$('a-scene').append("<a-curvedimage crossOrigin='Anonymous' src=" + posterURL + " radius='5' theta-length='40' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>");
 		posterRotation += 40;
 	}
-
-
-
-
-
-
-
-
-
-
-}, 4000);
+}, 8000);
 // 
 
 

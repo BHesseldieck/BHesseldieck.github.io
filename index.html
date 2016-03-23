@@ -1,16 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <style type="text/css">
+  body {
+    cursor: none;
+  }
+  </style>
   <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
   <script src="https://aframe.io/releases/latest/aframe.js"></script>
-
+  <script src="http://misterburton.com/local/ideo-sf-panorama/js/aframe.js"></script>
+  <script src="http://misterburton.com/local/ideo-sf-panorama/js/aframe-no-click-look-controls.min.js"></script>
 </head>
 <body>
+  <div> This is 2d outside</div>
   <a-scene>
+<!-- camera & cursor -->
+<a-entity camera no-click-look-controls="maxyaw:3.5; maxpitch:1.5">
+
+  <a-entity cursor="fuse: true; maxDistance: 30; timeout: 1000"
+            geometry="primitive: ring"
+            position="0 0 -1"
+            scale=".035 .035 .035"
+            material="color: white; shader: flat">
+  </a-entity>
+
+</a-entity><!-- /.camera & cursor -->
+
   <!-- <a-curvedimage src="http://ia.media-imdb.com/images/M/MV5BMTYzNDc2MDc0N15BMl5BanBnXkFtZTgwOTcwMDQ5MTE@._V1_SX300.jpg" radius='5' theta-length='40' height='8' rotation='100 40 0'</a-curvedimage> -->
 
+
   <a-sky color="#222"</a-sky>
-  <a-camera position="0 0 0"></a-camera>
+<!--   <a-camera position="0 0 0"></a-camera> -->
 </a-scene>
 <script src="movielist.js"></script>
 <script src="script.js"></script>
