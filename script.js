@@ -1,222 +1,153 @@
-// Final
-var movieTrailers =[];
-var movies = [];
 
-// var posterHeight = 0;
-// document.onkeydown = checkKeycode;
-// function checkKeycode(e) {
-// 	console.log(e);
-// 	if (e.code == "ArrowUp"){
-// 		$('#posters').append('<a-animation begin="click" easing="ease-in" attribute="position" from="0 0 0" to="0 -13 0" dur="1500" fill="forwards" ></a-animation>');
-// 		console.log($('#poster').attr('position'));
+var moviesObj = {};
+var genres = {};
 
-// 	}
-// }
-
-/**************************************************************************************************************
-						Get movie trailers from traileraddict(movie titles sourced in movielist.js)
-						**************************************************************************************************************/
-// $.getJSON('http://api.traileraddict.com/?film=curious-case-benjamin-button&count=3' + '&callback=?', function(data){
-// 	alert(data.contents);
-// });
-
+//get the list of movie genres and ids
 $.ajax({
 	method: 'GET',
-	dataType: 'xml',
-	url: 'http://crossorigin.me/http://api.traileraddict.com/?film=the-martian&count=3',
-	success: function(data){
-		movieTrailers.push(xmlToJson(data));
+	url: "http://api.themoviedb.org/3/genre/movie/list?api_key=79f81e8b70e985264de2f222934b1bd1",
+	success: function(data){		
+		moviesObj=data;
+		getMovies();
+	},
+	error: function(error){
+		console.log(error);
 	}
+})
+
+// for list of popular movies - http://api.themoviedb.org/3/discover/movie?key=79f81e8b70e985264de2f222934b1bd1&page=1&sort_by=popularity.desc
+
+// use the list of movie genres and ids to fetch content
+var getMovies = function(){
+	var genresProcessed = 0;
+	moviesObj.genres.forEach(function(item, i, arr){
+		var currentGenreID = item.id;
+		var currentGenreName = item.name;
+		$.ajax({
+			method: 'GET',
+			url: "http://api.themoviedb.org/3/genre/"+currentGenreID+"/movies?api_key=79f81e8b70e985264de2f222934b1bd1&page=2",
+			success: function(data){		
+				moviesObj[currentGenreName] = data;
+				console.log(genresProcessed);
+				if (genresProcessed == 19) placeMovies();
+				genresProcessed++;
+			},
+			error: function(error){
+				console.log(error);
+			}
+		})
+	})
+}
+
+var reverser = 1
+var counter = 21;
+// use the movie info object to create content on the page
+var placeMovies = function(){
+	console.log('placemovies')
+	//loop for genres
+	for (key in moviesObj){
+		var posterRotation = 0;
+		//loop for movies in a genre
+		if (key!=='genres'){
+			reverser*=-1
+			keyString = key.replace(/\s+/g, '')
+			createButton(keyString)
+			$('#posters').append("<a-entity id='" + keyString + "_div'><a-animation attribute=rotation from='0 1.5 0'to='0 " +reverser*358.5 + " 0'begin=400 dur=180000 repeat=infinite easing=linear></a-animation></a-entity>")
+			moviesObj[key].results.forEach(function(movie, index){
+				$("#"+keyString+"_div").append("<a-curvedimage class='poster' src='http://crossorigin.me/http://image.tmdb.org/t/p/w300" + movie.poster_path + "' radius='10' theta-length='18' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>")
+				posterRotation += 18;
+			})
+			animateIn(keyString)
+			counter--;
+		}
+	}
+}
+
+// Create buttons dynamically
+var buttonRotation=0;
+var heightmod=0;
+function createButton(genre){
+	if (buttonRotation >= 360) {
+		heightmod -= .6;
+		buttonRotation = 0;
+	}
+	$('#buttons').append('<a-entity id='+ genre +' rotation="0 '+ buttonRotation +' 0"><a-curvedimage id='+genre+' src="http://crossorigin.me/http://dummyimage.com/600x200/ffffff/000000%26text='+ genre +'"radius=5.7 theta-length=35 height=.85 position="0 '+(-0.535+heightmod)+' 0"scale=".4 .4 .4"opacity=.8><a-mouseenter target=#'+genre+'_glow opacity=1></a-mouseenter><a-mouseleave target=#'+genre+'_glow opacity=.2></a-mouseleave></a-curvedimage><a-curvedimage id='+genre+'_glow src=http://crossorigin.me/http://stampswebdesign.com/withersc/hud/glow.jpg rotation="0 1.5 0"radius=5.7 theta-length=38 height=1.1 position="0 '+(-0.67+heightmod)+'-0.67 0"scale=".5 .5 .5"opacity=.2></a-curvedimage></a-entity>')
+	buttonRotation += 40;
+}
+
+// animate the genre divs in in the beginning
+var divcount = 9
+var ease = 3500
+function animateIn(genre){
+	$('#' + genre + '_div').append('<a-animation easing="ease-in" attribute="position" from="0 ' + (divcount*7) + ' 0" to="0 ' + ((divcount*7)-20) + ' 0" dur="'+ease+'" fill="forwards" ></a-animation>');
+	divcount--;
+	ease -= 100;
+}
+
+
+// Add hover events for the genre buttons
+function navigateMovies(key){
+	$('#posters').append('<a-animation easing="ease-in" attribute="position" to="0 ' + (key * 7) + ' 0" dur="1500" fill="forwards" ></a-animation>').delay(800);
+}
+
+$('#buttons').delegate('#Action','click', function(){
+	navigateMovies(-6)
+});
+$('#buttons').delegate('#Adventure','click', function(){
+	navigateMovies(-5)
+});
+$('#buttons').delegate('#Animation','click', function(){
+	navigateMovies(-4)
+});
+$('#buttons').delegate('#Comedy','click', function(){
+	navigateMovies(-3)
+});
+$('#buttons').delegate('#Crime','click', function(){
+	navigateMovies(-2)
+});
+$('#buttons').delegate('#Documentary','click', function(){
+	navigateMovies(-1)
+});
+$('#buttons').delegate('#Drama','click', function(){
+	navigateMovies(0)
+});
+$('#buttons').delegate('#Family','click', function(){
+	navigateMovies(1)
+});
+$('#buttons').delegate('#Fantasy','click', function(){
+	navigateMovies(2)
+});
+$('#buttons').delegate('#Foreign','click', function(){
+	navigateMovies(3)
+});
+$('#buttons').delegate('#History','click', function(){
+	navigateMovies(4)
+});
+$('#buttons').delegate('#Horror','click', function(){
+	navigateMovies(5)
+});
+$('#buttons').delegate('#Music','click', function(){
+	navigateMovies(6)
+});
+$('#buttons').delegate('#Mystery','click', function(){
+	navigateMovies(7)
+});
+$('#buttons').delegate('#Romance','click', function(){
+	navigateMovies(8)
 });
 
-
-/*************************************************************************************************************
-						Get movie info from omdb(movie titles sourced in movielist.js)
-						**************************************************************************************************************/
-						var itemsProcessed = 0;
-
-						movieList.forEach(function(string){
-							var title = string.split(" ").join("+");
-							$.ajax({
-								method: 'GET',
-								url: "http://www.omdbapi.com/?t=" + title + "&y=&plot=short&r=json",
-								success: function(data){
-									if (data.Response == "True"){
-										movies.push(data);
-									}
-									itemsProcessed++;
-									if(itemsProcessed === movieList.length) {
-										placePosters();
-										placePosters('Drama');
-										placePosters('Action');
-										placePosters('Comedy');
-										placePosters('Sci-Fi');
-										placePosters('Western');
-										$('#featurediv').append('<a-animation easing="ease-in" attribute="position" from="0 38 0" to="0 18 0" dur="3500" fill="forwards" ></a-animation>');
-										$('#Dramadiv').append('<a-animation easing="ease-in" attribute="position" from="0 32 0" to="0 12 0" dur="3000" fill="forwards" ></a-animation>');
-										$('#Actiondiv').append('<a-animation easing="ease-in" attribute="position" from="0 26 0" to="0 6 0" dur="2500" fill="forwards" ></a-animation>');
-										$('#Comedydiv').append('<a-animation easing="ease-in" attribute="position" from="0 20 0" to="0 0 0" dur="2000" fill="forwards" ></a-animation>');
-										$('#Sci-Fidiv').append('<a-animation easing="ease-in" attribute="position" from="0 14 0" to="0 -6 0" dur="1500" fill="forwards" ></a-animation>');
-										$('#Westerndiv').append('<a-animation easing="ease-in" attribute="position" from="0 8 0" to="0 -12 0" dur="1000" fill="forwards" ></a-animation>');
-
-									}
-			// postPoster();
-		},
-		error: function(error){
-			console.log(error);
-		}
-	});
-						});
-
-// poster = 0;
-// // Appends movie posters to page
-// var placePosters = function(){
-// 	var posterRotation = 0;
-// 	for(var j = 1; j <= 3; j++){
-// 		posterHeight += 1;
-// 		for(var i = 0; i <= 17; i++){
-// 			var posterURL = 'http://crossorigin.me/' + movies[poster].Poster;
-// 			$('#posters' + j).append("<a-curvedimage src=" + posterURL + " radius='10' theta-length='20' height='6' rotation='0 " + posterRotation +  " 0'</a-curvedimage>");
-// 			posterRotation += 20;
-// 			poster++
-// 		}
-// 	}
-// };
-//NEW PLACE POSTERS FUNCTION ********************************************************************************************************************************************
-
-function clearSpace(){
-	$('#posters').text('');
-}
-
-// Appends movie posters to page based on genre
-var placePosters = function(genre){
-	// clearSpace();
-	var posterRotation = 0;
-	console.log(genre);
-	if(genre == undefined){
-		$('#posters').append("<a-entity id='featurediv'></a-entity>")
-		for(var i = 0; i <= 17; i++){
-			var posterURL = 'http://crossorigin.me/' + movies[i].Poster;
-			$('#featurediv').append("<a-curvedimage class='poster' src=" + posterURL + " radius='10' theta-length='20' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>");
-			posterRotation += 20;
-		}
-
-	}
-	else{
-		var counter = 0;
-		$('#posters').append("<a-entity id='" + genre + "div'></a-entity>")
-		for(var j = 0; j < movies.length; j++){
-			var posterURL = 'http://crossorigin.me/' + movies[j].Poster;
-			var splitGenre = movies[j].Genre.split(',');
-			for(var k=0; k < splitGenre.length; k++){
-				if(splitGenre[k] == genre  && counter <= 17){
-					$("#"+genre+"div").append("<a-curvedimage class='poster' src=" + posterURL + " radius='10' theta-length='20' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>")
-					posterRotation += 20;
-					counter++;
-				}
-			}
-		}
-	}
-}
-
-function navigateMovies(key){
-$('#posters').append('<a-animation easing="ease-in" attribute="position" to="0 ' + key * 6 + ' 0" dur="1500" fill="forwards" ></a-animation>');
-
-}
-
-			// for(var tj = 0; j < movies.length; j++){
-			// 	var posterURL = movies[j].Poster;
-			// 	var splitGenre = movies[j].Genre.split(',');
-			// 	for(var k=0; k < splitGenre.length; k++){
-			// 		if(splitGenre[k] == genre  && counter <= 17){
-			// 			$("#posters").append("<a-curvedimage class='poster' src=" + posterURL + " radius='10' theta-length='20' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>")
-			// 			posterRotation += 20;
-			// 			counter++;
-			// 		}
-			// 	}
-			// }
-
-
-
-			document.querySelector('#drama').addEventListener('click', function(){
-				// placePosters('Drama');
-				navigateMovies(-2)
-				console.log('DRAMA CLICKED');
-			});
-			document.querySelector('#action').addEventListener('click', function(){
-				// placePosters('Action');
-				navigateMovies(-1)
-				console.log('ACTION CLICKED');
-			});
-			document.querySelector('#comedy').addEventListener('click', function(){
-				// placePosters('Comedy');
-				navigateMovies(0)
-				console.log('Comedy CLICKED');
-			});
-
-//****************************************************************************************************************************************************************
-
-
-
-
-// var filterByGenre = function(genre){
-// 	$('#movieSection').replaceWith('<div id="movieSection"></div>');
-// 	$('#store').append('<div id="movieSection"></div>')
-// 	movies.forEach(function(item, i, arr){
-// 		$('#movieSection').append('<div id=movie' + i + ' class="col-md-3"></div');
-// 		$('#movie' + i).append("<div class='name'>" + item.Title + "</div>");
-// 		$('#movie' + i).append('<div class="category">' + item.Genre + '</div>');
-// 		$('#movie' + i).append("<div class='movie_img'><img src=" + item.Poster + "></div>")
-// 		//$('#movie' + i).append('<div class="awards">' + item.Awards('<br>') + '</div>');
-// 		$('#movie' + i).append("<div class='year'>" + item.Year + "</div>");
-// 		$('#movie' + i).append("<div class='actors'>" + item.Actors + "</div>");
-// 		$('#movie' + i).append("<div id='plot' class='hidden'>" + item.Plot + "</div>");
-// 	});
-// }
-
-// $('#allproducts').click(function(){
-// 	filterByGenre();
-// });
-
-// $('#drama').click(function(){
-// 	filterByGenre('Drama');
-// });
-
-// Changes XML to JSON. Used above to convert xml from trailer api to json
-function xmlToJson(xml) {
-
-	// Create the return object
-	var obj = {};
-
-	if (xml.nodeType == 1) { // element
-		// do attributes
-		if (xml.attributes.length > 0) {
-			obj["@attributes"] = {};
-			for (var j = 0; j < xml.attributes.length; j++) {
-				var attribute = xml.attributes.item(j);
-				obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-			}
-		}
-	} else if (xml.nodeType == 3) { // text
-		obj = xml.nodeValue;
-	}
-
-	// do children
-	if (xml.hasChildNodes()) {
-		for(var i = 0; i < xml.childNodes.length; i++) {
-			var item = xml.childNodes.item(i);
-			var nodeName = item.nodeName;
-			if (typeof(obj[nodeName]) == "undefined") {
-				obj[nodeName] = xmlToJson(item);
-			} else {
-				if (typeof(obj[nodeName].push) == "undefined") {
-					var old = obj[nodeName];
-					obj[nodeName] = [];
-					obj[nodeName].push(old);
-				}
-				obj[nodeName].push(xmlToJson(item));
-			}
-		}
-	}
-	return obj;
-};
+$('#buttons').delegate('#ScienceFiction','click', function(){
+	navigateMovies(9)
+});
+$('#buttons').delegate('#TVMovie','click', function(){
+	navigateMovies(10)
+});
+$('#buttons').delegate('#Thriller','click', function(){
+	navigateMovies(11)
+});
+$('#buttons').delegate('#War','click', function(){
+	navigateMovies(12)
+});
+$('#buttons').delegate('#Western','click', function(){
+	navigateMovies(13)
+});
