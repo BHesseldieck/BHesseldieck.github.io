@@ -28,7 +28,6 @@ var getMovies = function(){
 			url: "http://api.themoviedb.org/3/genre/"+currentGenreID+"/movies?api_key=79f81e8b70e985264de2f222934b1bd1&page=2",
 			success: function(data){		
 				moviesObj[currentGenreName] = data;
-				console.log(genresProcessed);
 				if (genresProcessed == 19) placeMovies();
 				genresProcessed++;
 			},
@@ -43,7 +42,6 @@ var reverser = 1
 var counter = 21;
 // use the movie info object to create content on the page
 var placeMovies = function(){
-	console.log('placemovies')
 	//loop for genres
 	for (key in moviesObj){
 		var posterRotation = 0;
@@ -54,7 +52,7 @@ var placeMovies = function(){
 			createButton(keyString)
 			$('#posters').append("<a-entity id='" + keyString + "_div'><a-animation attribute=rotation from='0 1.5 0'to='0 " +reverser*358.5 + " 0'begin=400 dur=180000 repeat=infinite easing=linear></a-animation></a-entity>")
 			moviesObj[key].results.forEach(function(movie, index){
-				$("#"+keyString+"_div").append("<a-curvedimage class='poster' src='http://crossorigin.me/http://image.tmdb.org/t/p/w300" + movie.poster_path + "' radius='10' theta-length='18' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>")
+				$("#"+keyString+"_div").append("<a-curvedimage id=" + movie.id + " class='poster' src='http://crossorigin.me/http://image.tmdb.org/t/p/w300" + movie.poster_path + "' radius='10' theta-length='18' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>")
 				posterRotation += 18;
 			})
 			animateIn(keyString)
