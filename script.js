@@ -149,3 +149,9 @@ $('#buttons').delegate('#War','click', function(){
 $('#buttons').delegate('#Western','click', function(){
 	navigateMovies(13)
 });
+$('#posters').delegate('a-curvedimage', 'click', function(){
+	if ($(this).attr('radius') == 5){
+		$(this).attr('radius', '10').attr('theta-length', '18');
+	} else $(this).attr('radius', '5').attr('theta-length', '40');
+
+});
