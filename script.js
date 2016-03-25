@@ -50,7 +50,7 @@ var placeMovies = function(){
 			createButton(keyString)
 			$('#posters').append("<a-entity id='" + keyString + "_div'><a-animation attribute=rotation from='0 1.5 0'to='0 " +reverser*358.5 + " 0'begin=400 dur=180000 repeat=infinite easing=linear></a-animation></a-entity>")
 			moviesObj[key].results.forEach(function(movie, index){
-				var posterPath = movie.poster_path === null ? 'https://crossorigin.me/http://www.movli.com/images/movie-default.jpg' : 'http://crossorigin.me/http://image.tmdb.org/t/p/w300' + movie.poster_path
+				var posterPath = movie.poster_path === null ? 'https://crossorigin.me/https://www.movli.com/images/movie-default.jpg' : 'https://crossorigin.me/https://image.tmdb.org/t/p/w300' + movie.poster_path
 				$("#"+keyString+"_div").append("<a-curvedimage id=" + movie.id + " class='poster' src='" + posterPath + "' radius='10' theta-length='18' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>")
 				posterRotation += 18;
 			})
@@ -74,7 +74,7 @@ function createButton(genre){
 	}
 
 
-	$('#buttons').append('<a-entity id='+ genre +' rotation="0 '+ buttonRotation +' 0"><a-curvedimage id='+genre+' src="http://crossorigin.me/http://fakeimg.pl/439x230/282828/eae0d0/?text='+ genre +'"radius=5.7 theta-length=35 height=.85 position="0 '+(-0.535+heightmod)+' 0"scale=".4 .4 .4"opacity=.8><a-mouseenter target=#'+genre+'_glow opacity=1></a-mouseenter><a-mouseleave target=#'+genre+'_glow opacity=.2></a-mouseleave></a-curvedimage><a-curvedimage id='+genre+'_glow src="glow.jpg" rotation="0 1.5 0"radius=5.7 theta-length=38 height=1.1 position="0 '+(-0.67+heightmod+secondRowGlow)+'-0.67 0"scale=".5 .5 .5"opacity=.2></a-curvedimage></a-entity>')
+	$('#buttons').append('<a-entity id='+ genre +' rotation="0 '+ buttonRotation +' 0"><a-curvedimage id='+genre+' src="https://crossorigin.me/https://fakeimg.pl/439x230/282828/eae0d0/?text='+ genre +'"radius=5.7 theta-length=35 height=.85 position="0 '+(-0.535+heightmod)+' 0"scale=".4 .4 .4"opacity=.8><a-mouseenter target=#'+genre+'_glow opacity=1></a-mouseenter><a-mouseleave target=#'+genre+'_glow opacity=.2></a-mouseleave></a-curvedimage><a-curvedimage id='+genre+'_glow src="glow.jpg" rotation="0 1.5 0"radius=5.7 theta-length=38 height=1.1 position="0 '+(-0.67+heightmod+secondRowGlow)+'-0.67 0"scale=".5 .5 .5"opacity=.2></a-curvedimage></a-entity>')
 	buttonRotation += 40;
 }
 
@@ -130,7 +130,7 @@ $('#posters').delegate('a-curvedimage', 'click', function(){
 								$('body').append('<div id="overlay"><div id="background"><h1 id="exit">X</h1><div id="content"><div id="headline"><h1 id="title">'+ movie.title+ '</h1></div><h3 id="synopsis">' + movie.overview +'</h3><div id="trailer">'+trailer+'</div></div></div></div>');
 								$("#overlay").hide();
 								$('#background').css({
-									'background' : 'url(https://crossorigin.me/http://image.tmdb.org/t/p/w1280' + movie.backdrop_path+') no-repeat',
+									'background' : 'url(https://crossorigin.me/https://image.tmdb.org/t/p/w1280' + movie.backdrop_path+') no-repeat',
 									'background-size': 'cover',
 									'filter': 'alpha(Opacity=90)',
 									'opacity' : '.9'
