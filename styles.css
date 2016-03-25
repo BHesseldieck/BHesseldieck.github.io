@@ -1,0 +1,63 @@
+#container {
+  position: relative;
+}
+
+#container canvas, #overlay {
+	background-color: rgba(0,0,0,.5);
+	height: 100%;
+  padding: 2%;
+  width: 100%;
+  position: absolute;
+}
+#container canvas, #background {
+  font-family: 'Raleway', sans-serif;
+  height: 80%;
+  padding: 2%;
+  width: 90%;
+  position: relative;
+}
+
+#container canvas, #content{
+  background-color: rgba(0,0,0,.5);
+  color: white;
+  margin: 5%;
+  padding: 2%;
+  height: auto;
+  opacity: 100%;
+  background: -moz-linear-gradient(left, rgba(28,28,28,1) 0%, rgba(43,43,43,1) 24%, rgba(17,17,17,1) 40%, rgba(11,11,11,1) 43%, rgba(0,0,0,0.89) 49%, rgba(44,44,44,0.87) 50%, rgba(76,76,76,0) 100%); /* FF3.6-15 */
+}
+
+#headline{
+  width:auto;
+}
+
+h1 {
+
+  font-size: 3em;
+  width:auto;
+  margin: 0;
+}
+
+
+#content h2{
+  clear: both;
+
+  height:100px;
+  width:200px;
+}
+
+#content iframe {
+
+  margin: auto;
+  opacity: 100%;
+}
+#exit{
+  cursor: pointer;
+  float: right;
+  color: red;
+}
+
+canvas {
+  border: 1px solid black;
+}
+

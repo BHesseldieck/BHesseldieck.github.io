@@ -1,88 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <style type="text/css">
-    body {
-      cursor: none;
-    }
-  </style>
-  <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
-  <script src="https://aframe.io/releases/latest/aframe.min.js"></script>
-  <script src="http://misterburton.com/local/ideo-sf-panorama/js/aframe-no-click-look-controls.min.js"></script>
-</head>
-<body>
-  <a-scene>
-  <!-- camera & cursor -->
-  <a-entity camera no-click-look-controls="maxyaw:3.5; maxpitch:1.5">
+   <head>
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <style type="text/css">
+         body {
+         cursor: none;
+         }
+      </style>
+      <link rel="stylesheet" href="styles.css">
+      <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+      <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+      <script src="https://aframe.io/releases/latest/aframe.min.js"></script>
+      <script src="aframe-no-click-look-controls.min.js"></script>
+   </head>
+   <body>
+   <div id="container">
 
-  <a-entity cursor="fuse: true; maxDistance: 30; timeout: 1000"
-  geometry="primitive: ring"
-  position="0 0 -1"
-  scale=".035 .035 .035"
-  material="color: white; shader: flat">
-</a-entity>
-
-</a-entity><!-- /.camera & cursor -->
-
-<a-entity id='posters'></a-entity>
-
-<!-- <a-video src="The Martian - Official Trailer [HD] - 20th Century FOX.mp4" autoplay="true" width="16" height="9" position="0 0 -3"></a-video> -->
-
-
-<!-- <a-curvedimage src="http://ia.media-imdb.com/images/M/MV5BMTYzNDc2MDc0N15BMl5BanBnXkFtZTgwOTcwMDQ5MTE@._V1_SX300.jpg" radius='5' theta-length='40' height='8' rotation='100 40 0'</a-curvedimage> -->
-
-<!-- Stamps Logo
-<a-curvedimage src="http://stampswebdesign.com/withersc/hud/stampslogo.png" radius="5.7" theta-length="36" height="1" position="0 2.6 0" opacity="0.5">
-<a-animation attribute="rotation" from="0 10 0" to="0 25 0" begin="500" dur="1000"></a-animation>
-</a-curvedimage>-->
-
-
-
-<!-- Drama Category -->
-<a-entity id='drama' rotation="0 0 0">
-<a-curvedimage id="maphallbutton" src="http://crossorigin.me/http://vignette2.wikia.nocookie.net/the-house-of-anubis/images/f/f1/Drama.gif/revision/latest?cb=20131119230425" radius="5.7" theta-length="35" height=".85" position="0 -0.535 0" scale=".4 .4 .4"  opacity=".8">
-<a-animation attribute="rotation" from="0 0 0" to="0 -360 0" begin="0" dur="60000" repeat="infinite" easing="linear"></a-animation>
-<a-mouseenter target="#glow" opacity="1"></a-mouseenter>
-<a-mouseleave target="#glow" opacity=".2"></a-mouseleave>
-</a-curvedimage>
-
-<a-curvedimage id="glow" src="http://crossorigin.me/http://stampswebdesign.com/withersc/hud/glow.jpg" rotation="0 1.5 0" radius="5.7" theta-length="38" height="1.1" position="0 -0.67 0" scale=".5 .5 .5"  opacity=".2">
-<a-animation attribute="rotation" from="0 1.5 0" to="0 -358.5 0" begin="0" dur="60000" repeat="infinite" easing="linear"></a-animation>
-</a-curvedimage>
-</a-entity>
-
-<!-- Action Category -->
-<a-entity id='action' rotation="0 -40 0">
-<a-curvedimage id="woodshopbutton" src="http://crossorigin.me/http://www.clker.com/cliparts/9/v/m/M/y/i/action-md.png" radius="5.7" theta-length="35" height=".85" position="0 -0.535 0" scale=".4 .4 .4"  opacity=".8">
-<a-animation attribute="rotation" from="0 0 0" to="0 -360 0" begin="0" dur="60000" repeat="infinite" easing="linear"></a-animation>
-<a-mouseenter target="#glow2" opacity="1"></a-mouseenter>
-<a-mouseleave target="#glow2" opacity=".2"></a-mouseleave>
-</a-curvedimage>
-
-<a-curvedimage id="glow2" src="http://crossorigin.me/http://stampswebdesign.com/withersc/hud/glow.jpg" rotation="0 1.5 0" radius="5.7" theta-length="38" height="1.1" position="0 -0.67 0" scale=".5 .5 .5"  opacity=".2">
-<a-animation attribute="rotation" from="0 1.5 0" to="0 -358.5 0" begin="0" dur="60000" repeat="infinite" easing="linear"></a-animation>
-</a-curvedimage>
-</a-entity>
-
-<!-- Comedy Category -->
-<a-entity id='comedy' rotation="0 -80 0">
-<a-curvedimage id="paintingstudbutton" src="http://crossorigin.me/https://static1.squarespace.com/static/53d81026e4b0b94401a2bb0c/t/53dbb16fe4b0f8a24849a5ef/1406906736084/comedy-dinner.jpg?format=1500w" radius="5.7" theta-length="35" height=".85" position="0 -0.535 0" scale=".4 .4 .4"  opacity=".8">
-<a-animation attribute="rotation" from="0 0 0" to="0 -360 0" begin="0" dur="60000" repeat="infinite" easing="linear"></a-animation>
-<a-mouseenter target="#glow3" opacity="1"></a-mouseenter>
-<a-mouseleave target="#glow3" opacity=".2"></a-mouseleave>
-</a-curvedimage>
-
-<a-curvedimage id="glow3" src="http://crossorigin.me/http://stampswebdesign.com/withersc/hud/glow.jpg" rotation="0 1.5 0" radius="5.7" theta-length="38" height="1.1" position="0 -0.67 0" scale=".5 .5 .5"  opacity=".2">
-<a-animation attribute="rotation" from="0 1.5 0" to="0 -358.5 0" begin="0" dur="60000" repeat="infinite" easing="linear"></a-animation>
-</a-curvedimage>
-</a-entity>
-
-<a-sky src="http://crossorigin.me/http://www.mrbluesummers.com/wp-content/uploads/2012/04/07.jpg"</a-sky>
-<!--   <a-camera position="0 0 0"></a-camera> -->
-</a-scene>
-<script src="movielist.js"></script>
-<script src="script.js"></script>
-</body>
-
+   </div>
+      <a-scene fog="type: linear; color: #e9fcfc; far: 30; near: 4">
+         <a-entity camera no-click-look-controls="maxyaw:3.5; maxpitch:1.5">
+            <a-entity cursor="fuse: false; maxDistance: 30; timeout: 1000"
+               geometry="primitive: ring"
+               position="0 0 -1"
+               scale=".035 .035 .035"
+               material="color: white; shader: flat"></a-entity>
+         </a-entity>
+         <a-entity id='posters'></a-entity>
+         <a-entity id='buttons'>
+            <a-animation attribute=rotation from="0 1.5 0"to="0 -358.5 0"begin=0 dur=60000 repeat=infinite easing=linear></a-animation>
+         </a-entity>
+         <a-sky src="http://crossorigin.me/http://www.mrbluesummers.com/wp-content/uploads/2012/04/07.jpg"</a-sky>
+      </a-scene>
+      <script src="script.js"></script>
+   </body>
 </html>
