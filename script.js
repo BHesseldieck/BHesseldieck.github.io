@@ -1,3 +1,4 @@
+
 var moviesObj = {};
 var genres = {};
 //get the list of movie genres and ids
