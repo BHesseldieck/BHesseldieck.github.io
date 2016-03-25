@@ -20,10 +20,7 @@
 #container canvas, #content{
   background-color: rgba(0,0,0,.5);
   color: white;
-<<<<<<< HEAD
-=======
   text-shadow: 2px 2px black;
->>>>>>> ea17d7b9d33623f62892d2dce1b614fb2c1290f0
   margin: 5%;
   padding: 2%;
   height: auto;
@@ -36,27 +33,6 @@
 }
 
 h1 {
-<<<<<<< HEAD
-
-  font-size: 3em;
-  width:auto;
-  margin: 0;
-}
-
-
-#content h2{
-  clear: both;
-
-  height:100px;
-  width:200px;
-}
-
-#content iframe {
-
-  margin: auto;
-  opacity: 100%;
-}
-=======
   font-size: 3em;
   width:auto;
   text-align: center;
@@ -73,21 +49,13 @@ h1 {
   opacity: 100%;
 }
 
->>>>>>> ea17d7b9d33623f62892d2dce1b614fb2c1290f0
 #exit{
   cursor: pointer;
   float: right;
   color: red;
-<<<<<<< HEAD
-=======
   text-shadow: 2px 2px black;
->>>>>>> ea17d7b9d33623f62892d2dce1b614fb2c1290f0
 }
 
 canvas {
   border: 1px solid black;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> ea17d7b9d33623f62892d2dce1b614fb2c1290f0
