@@ -14,8 +14,6 @@ $.ajax({
 	}
 })
 
-// for list of popular movies - http://api.themoviedb.org/3/discover/movie?key=79f81e8b70e985264de2f222934b1bd1&page=1&sort_by=popularity.desc
-
 // use the list of movie genres and ids to fetch content
 var getMovies = function(){
 	var genresProcessed = 0;
@@ -24,10 +22,10 @@ var getMovies = function(){
 		var currentGenreName = item.name;
 		$.ajax({
 			method: 'GET',
-			url: "http://api.themoviedb.org/3/genre/"+currentGenreID+"/movies?api_key=79f81e8b70e985264de2f222934b1bd1&page=2",
+			url: "http://api.themoviedb.org/3/genre/"+currentGenreID+"/movies?api_key=79f81e8b70e985264de2f222934b1bd1&page=3",
 			success: function(data){
 				moviesObj[currentGenreName] = data;
-				if (genresProcessed == 19) placeMovies();
+				if (genresProcessed == 17) placeMovies();
 				genresProcessed++;
 			},
 			error: function(error){
@@ -52,8 +50,8 @@ var placeMovies = function(){
 			createButton(keyString)
 			$('#posters').append("<a-entity id='" + keyString + "_div'><a-animation attribute=rotation from='0 1.5 0'to='0 " +reverser*358.5 + " 0'begin=400 dur=180000 repeat=infinite easing=linear></a-animation></a-entity>")
 			moviesObj[key].results.forEach(function(movie, index){
-
-				$("#"+keyString+"_div").append("<a-curvedimage id=" + movie.id + " class='poster' src='http://crossorigin.me/http://image.tmdb.org/t/p/w300" + movie.poster_path + "' radius='10' theta-length='18' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>")
+				var posterPath = movie.poster_path === null ? 'http://crossorigin.me/http://www.movli.com/images/movie-default.jpg' : 'http://crossorigin.me/http://image.tmdb.org/t/p/w300' + movie.poster_path
+				$("#"+keyString+"_div").append("<a-curvedimage id=" + movie.id + " class='poster' src='" + posterPath + "' radius='10' theta-length='18' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>")
 				posterRotation += 18;
 			})
 			animateIn(keyString)
@@ -128,7 +126,9 @@ $('#posters').delegate('a-curvedimage', 'click', function(){
 						for(var prop in movie){
 							if (movie[prop] === parseInt(clickedId) && !found) {
 								found = true;
+
 								$('body').append('<div id="overlay"><div id="background"><h1 id="exit">X</h1><div id="content"><div id="headline"><h1 id="title">'+ movie.title+ '</h1></div><h3 id="synopsis">' + movie.overview +'</h3><div id="trailer">'+trailer+'</div></div></div></div>');
+								$("#overlay").hide();
 								$('#background').css({
 									'background' : 'url(http://crossorigin.me/http://image.tmdb.org/t/p/w1280' + movie.backdrop_path+') no-repeat',
 									'background-size': 'cover',
@@ -138,6 +138,7 @@ $('#posters').delegate('a-curvedimage', 'click', function(){
 								$('#content').css({
 									'background-color': 'rgba(0,0,0,.5)',
 								});
+								$("#overlay").fadeIn("slow");
 							}
 						}
 					});
