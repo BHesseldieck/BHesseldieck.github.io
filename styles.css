@@ -20,6 +20,7 @@
 #container canvas, #content{
   background-color: rgba(0,0,0,.5);
   color: white;
+  text-shadow: 2px 2px black;
   margin: 5%;
   padding: 2%;
   height: auto;
@@ -32,29 +33,27 @@
 }
 
 h1 {
-
   font-size: 3em;
   width:auto;
-  margin: 0;
+  text-align: center;
+  margin: auto;
 }
 
-
-#content h2{
-  clear: both;
-
-  height:100px;
-  width:200px;
+#content h3{
+  text-align: center;
 }
 
 #content iframe {
-
+  display:block;
   margin: auto;
   opacity: 100%;
 }
+
 #exit{
   cursor: pointer;
   float: right;
   color: red;
+  text-shadow: 2px 2px black;
 }
 
 canvas {

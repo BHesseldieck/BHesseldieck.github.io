@@ -52,6 +52,7 @@ var placeMovies = function(){
 			createButton(keyString)
 			$('#posters').append("<a-entity id='" + keyString + "_div'><a-animation attribute=rotation from='0 1.5 0'to='0 " +reverser*358.5 + " 0'begin=400 dur=180000 repeat=infinite easing=linear></a-animation></a-entity>")
 			moviesObj[key].results.forEach(function(movie, index){
+
 				$("#"+keyString+"_div").append("<a-curvedimage id=" + movie.id + " class='poster' src='http://crossorigin.me/http://image.tmdb.org/t/p/w300" + movie.poster_path + "' radius='10' theta-length='18' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>")
 				posterRotation += 18;
 			})
@@ -71,10 +72,11 @@ function createButton(genre){
 	if (buttonRotation >= 360) {
 		heightmod -= .6;
 		buttonRotation = 0;
-		secondRowGlow= -.15;
+		secondRowGlow += -.15;
 	}
 
-	$('#buttons').append('<a-entity id='+ genre +' rotation="0 '+ buttonRotation +' 0"><a-curvedimage id='+genre+' src="http://crossorigin.me/http://fakeimg.pl/439x230/282828/eae0d0/?text='+ genre +'"radius=5.7 theta-length=35 height=.85 position="0 '+(-0.535+heightmod)+' 0"scale=".4 .4 .4"opacity=.8><a-mouseenter target=#'+genre+'_glow opacity=1></a-mouseenter><a-mouseleave target=#'+genre+'_glow opacity=.2></a-mouseleave></a-curvedimage><a-curvedimage id='+genre+'_glow src=http://crossorigin.me/http://stampswebdesign.com/withersc/hud/glow.jpg rotation="0 1.5 0"radius=5.7 theta-length=38 height=1.1 position="0 '+(-0.67+heightmod+secondRowGlow)+'-0.67 0"scale=".5 .5 .5"opacity=.2></a-curvedimage></a-entity>')
+
+	$('#buttons').append('<a-entity id='+ genre +' rotation="0 '+ buttonRotation +' 0"><a-curvedimage id='+genre+' src="http://crossorigin.me/http://fakeimg.pl/439x230/282828/eae0d0/?text='+ genre +'"radius=5.7 theta-length=35 height=.85 position="0 '+(-0.535+heightmod)+' 0"scale=".4 .4 .4"opacity=.8><a-mouseenter target=#'+genre+'_glow opacity=1></a-mouseenter><a-mouseleave target=#'+genre+'_glow opacity=.2></a-mouseleave></a-curvedimage><a-curvedimage id='+genre+'_glow src="glow.jpg" rotation="0 1.5 0"radius=5.7 theta-length=38 height=1.1 position="0 '+(-0.67+heightmod+secondRowGlow)+'-0.67 0"scale=".5 .5 .5"opacity=.2></a-curvedimage></a-entity>')
 	buttonRotation += 40;
 }
 
@@ -114,6 +116,7 @@ var trailer = ''
 //poster click brings up movie details and trailer
 $('#posters').delegate('a-curvedimage', 'click', function(){
 	clickedId = $(this).attr('id')
+	var found = false;
 	$.ajax({
 		method: 'GET',
 		url: 'http://api.themoviedb.org/3/movie/' + clickedId + '/videos?api_key=79f81e8b70e985264de2f222934b1bd1',
@@ -123,7 +126,8 @@ $('#posters').delegate('a-curvedimage', 'click', function(){
 				if (key!=='genres'){
 					moviesObj[key].results.forEach(function(movie, index){
 						for(var prop in movie){
-							if (movie[prop] === parseInt(clickedId)) {
+							if (movie[prop] === parseInt(clickedId) && !found) {
+								found = true;
 								$('body').append('<div id="overlay"><div id="background"><h1 id="exit">X</h1><div id="content"><div id="headline"><h1 id="title">'+ movie.title+ '</h1></div><h3 id="synopsis">' + movie.overview +'</h3><div id="trailer">'+trailer+'</div></div></div></div>');
 								$('#background').css({
 									'background' : 'url(http://crossorigin.me/http://image.tmdb.org/t/p/w1280' + movie.backdrop_path+') no-repeat',
