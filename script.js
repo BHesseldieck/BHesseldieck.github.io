@@ -4,7 +4,7 @@ var genres = {};
 //get the list of movie genres and ids
 $.ajax({
 	method: 'GET',
-	url: "http://api.themoviedb.org/3/genre/movie/list?api_key=79f81e8b70e985264de2f222934b1bd1",
+	url: "https://api.themoviedb.org/3/genre/movie/list?api_key=79f81e8b70e985264de2f222934b1bd1",
 	success: function(data){
 		moviesObj=data;
 		getMovies();
@@ -22,7 +22,7 @@ var getMovies = function(){
 		var currentGenreName = item.name;
 		$.ajax({
 			method: 'GET',
-			url: "http://api.themoviedb.org/3/genre/"+currentGenreID+"/movies?api_key=79f81e8b70e985264de2f222934b1bd1&page=3",
+			url: "https://api.themoviedb.org/3/genre/"+currentGenreID+"/movies?api_key=79f81e8b70e985264de2f222934b1bd1&page=3",
 			success: function(data){
 				moviesObj[currentGenreName] = data;
 				if (genresProcessed == 17) placeMovies();
@@ -50,7 +50,7 @@ var placeMovies = function(){
 			createButton(keyString)
 			$('#posters').append("<a-entity id='" + keyString + "_div'><a-animation attribute=rotation from='0 1.5 0'to='0 " +reverser*358.5 + " 0'begin=400 dur=180000 repeat=infinite easing=linear></a-animation></a-entity>")
 			moviesObj[key].results.forEach(function(movie, index){
-				var posterPath = movie.poster_path === null ? 'http://crossorigin.me/http://www.movli.com/images/movie-default.jpg' : 'http://crossorigin.me/http://image.tmdb.org/t/p/w300' + movie.poster_path
+				var posterPath = movie.poster_path === null ? 'https://crossorigin.me/http://www.movli.com/images/movie-default.jpg' : 'http://crossorigin.me/http://image.tmdb.org/t/p/w300' + movie.poster_path
 				$("#"+keyString+"_div").append("<a-curvedimage id=" + movie.id + " class='poster' src='" + posterPath + "' radius='10' theta-length='18' height='6' rotation='0 " + posterRotation + " 0'</a-curvedimage>")
 				posterRotation += 18;
 			})
@@ -117,7 +117,7 @@ $('#posters').delegate('a-curvedimage', 'click', function(){
 	var found = false;
 	$.ajax({
 		method: 'GET',
-		url: 'http://api.themoviedb.org/3/movie/' + clickedId + '/videos?api_key=79f81e8b70e985264de2f222934b1bd1',
+		url: 'https://api.themoviedb.org/3/movie/' + clickedId + '/videos?api_key=79f81e8b70e985264de2f222934b1bd1',
 		success: function(data){
 			trailer = '<iframe  width="500" height="275" src="https://www.youtube.com/embed/'+data.results[0].key+'" frameborder="0" allowfullscreen></iframe>'
 			for (var key in moviesObj){
@@ -130,7 +130,7 @@ $('#posters').delegate('a-curvedimage', 'click', function(){
 								$('body').append('<div id="overlay"><div id="background"><h1 id="exit">X</h1><div id="content"><div id="headline"><h1 id="title">'+ movie.title+ '</h1></div><h3 id="synopsis">' + movie.overview +'</h3><div id="trailer">'+trailer+'</div></div></div></div>');
 								$("#overlay").hide();
 								$('#background').css({
-									'background' : 'url(http://crossorigin.me/http://image.tmdb.org/t/p/w1280' + movie.backdrop_path+') no-repeat',
+									'background' : 'url(https://crossorigin.me/http://image.tmdb.org/t/p/w1280' + movie.backdrop_path+') no-repeat',
 									'background-size': 'cover',
 									'filter': 'alpha(Opacity=90)',
 									'opacity' : '.9'
