@@ -49,7 +49,19 @@ const handleInput = (command) => {
 const showAbout = () => {
   myTerminal.print("==> I am Ben Hesseldieck");
   myTerminal.print(
-    "> A Language-agnostic software engineer and dedicated problem-solver as well as an engineering leader with demonstrated experience in leading engineering teams, delivering high-quality products & building strong technical teams."
+    "> A language-agnostic Software Engineer and people-first Engineering Leader with 9 years of professional experience building web and mobile applications across various architectures in cloud and on premise environments."
+  );
+  myTerminal.print(
+    "> I have a proven track record assembling and managing happy, cohesive and high-performing engineering teams. I've grown into a manager in progressive people-first companies, and I have experience making good teams great. Most importantly I do my best to be a decent, empathetic human being who's fun to work with."
+  );
+  myTerminal.print(
+    "> I am primarily interested in senior+ individual contributor roles, or engineering leadership roles with a strong hands-on development component."
+  );
+  myTerminal.print(
+    "> Architecting and implementing modern, high-quality web or mobile applications and backend systems, combining good programming practices with latest tools and technologies is my passion."
+  );
+  myTerminal.print(
+    "> Product wise I love building tools that make teams and developers more effective."
   );
   myTerminal.print(
     "> I am a strong believer in the power of open source and the community"
@@ -75,6 +87,7 @@ const showTechnologies = () => {
     { name: "Vite / Webpack" },
     { name: "Docker" },
     { name: "Kubernetes" },
+    { name: "Temporal" },
     { name: "Posgresql" },
     { name: "MySQL" },
     { name: "SQLite" },
